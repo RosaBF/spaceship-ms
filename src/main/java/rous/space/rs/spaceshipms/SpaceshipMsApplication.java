@@ -8,6 +8,8 @@ public class SpaceshipMsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpaceshipMsApplication.class, args);
+		System.out.println("Hello my spaceship microservice");
+
 	}
 
 }

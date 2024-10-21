@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import rous.space.rs.spaceshipms.application.services.SpaceshipService;
 import rous.space.rs.spaceshipms.domain.Spaceship;
-import rous.space.rs.spaceshipms.domain.exceptions.InvalidSpaceshipDataException;
+import rous.space.rs.spaceshipms.domain.exceptions.SpaceshipNotFoundException;
 
 @RequiredArgsConstructor
 @Service
@@ -20,13 +20,9 @@ public class CreateSpaceshipUseCase {
     }
 
     private void validateSpaceshipData(Spaceship spaceship) {
-        // Validaciones personalizadas con mensajes claros
         if (spaceship.getName() == null || spaceship.getName().isBlank()) {
-            throw new InvalidSpaceshipDataException("El nombre de la nave no puede estar vacío");
+            throw new SpaceshipNotFoundException("El nombre de la nave no puede estar vacío");
         }
-        // Agregar más validaciones según sea necesario, por ejemplo:
-        // - Validar el año de fabricación
-        // - Validar la capacidad de la tripulación
-        // - Validar que no existan naves con el mismo nombre
+
     }
 }
