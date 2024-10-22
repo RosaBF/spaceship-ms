@@ -29,11 +29,11 @@ public class SpaceshipController {
     private FindSpaceshipsByNameUseCase findSpaceshipsByNameUseCase;
 
     @PostMapping("/spaceships")
-    public ResponseEntity<Long> createSpaceship(@RequestBody Spaceship spaceship) {
+    public ResponseEntity<Spaceship> createSpaceship(@RequestBody Spaceship spaceship) {
 
 
-        Long spaceshipId = createSpaceshipUseCase.createSpaceship(spaceship);
-        return ResponseEntity.created(URI.create("/spaceships/" + spaceshipId)).body(spaceshipId);
+        Spaceship spaceshipCreated = createSpaceshipUseCase.createSpaceship(spaceship);
+        return ResponseEntity.created(URI.create("/spaceships/" + spaceshipCreated.getId())).body(spaceshipCreated);
     }
     @GetMapping("/spaceships/{id}")
     public ResponseEntity<Spaceship> getSpaceshipById(@PathVariable Long id) {
@@ -64,8 +64,7 @@ public class SpaceshipController {
 
     @GetMapping("/spaceships/search")
     public Page<Spaceship> findSpaceshipsByName(@RequestParam String name, Pageable pageable) {
-        final Page<Spaceship> spaceshipsByName = findSpaceshipsByNameUseCase.findSpaceshipsByName(name, pageable);
-        return spaceshipsByName;
+        return findSpaceshipsByNameUseCase.findSpaceshipsByName(name, pageable);
     }
 
 

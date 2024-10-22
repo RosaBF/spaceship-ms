@@ -18,6 +18,8 @@ git clone https://github.com/your-repo/spaceship-ms.git
 
 ```
 cd spaceship-ms
+mvn clean install
+docker build -t spaceship-ms .
 docker compose up 
 ```
 This will build the Docker images for the microservice and the database, then start the containers in detached mode.
@@ -102,14 +104,6 @@ Delete a spaceship:
 #### DELETE /spaceships/{id}
 Response: 204 No Content
 
-### Database Initialization
-The microservice uses a database to store spaceship data. You can initialize the database schema by running the following command:
-
-```
-docker-compose exec spaceship-ms java -jar target/spaceship-ms.jar
-```
-
-This will start the application, create the necessary database tables, and then exit.
 
 Additional Notes
 - The database connection details are configured in `application.yaml`.

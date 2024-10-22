@@ -13,10 +13,10 @@ public class CreateSpaceshipUseCase {
     private final SpaceshipService spaceshipService;
     private Spaceship spaceship;
 
-    public Long createSpaceship(Spaceship spaceship) {
+    public Spaceship createSpaceship(Spaceship spaceship) {
         this.spaceship = spaceship;
         validateSpaceshipData(spaceship);
-        return spaceshipService.createSpaceship(spaceship).getId();
+        return spaceshipService.createSpaceship(spaceship);
     }
 
     private void validateSpaceshipData(Spaceship spaceship) {
