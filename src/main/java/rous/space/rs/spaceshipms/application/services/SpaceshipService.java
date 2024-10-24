@@ -26,9 +26,9 @@ public class SpaceshipService {
 
     public Spaceship updateSpaceship(Spaceship spaceship) {
         // Check if spaceship exists before update
-        Spaceship existingSpaceship = getSpaceshipById(spaceship.getId());
+        Spaceship existingSpaceship = getSpaceshipById(spaceship.id);
         if (existingSpaceship == null) {
-            throw new RuntimeException("Spaceship with id " + spaceship.getId() + " not found");
+            throw new RuntimeException("Spaceship with id " + spaceship.id + " not found");
         }
         return spaceshipRepository.save(spaceship);
     }
