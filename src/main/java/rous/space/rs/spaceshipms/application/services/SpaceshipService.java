@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import rous.space.rs.spaceshipms.domain.Spaceship;
 import rous.space.rs.spaceshipms.infrastructure.database.SpaceshipRepository;
 
+
+
 @Service
 public class SpaceshipService {
 
@@ -26,9 +28,9 @@ public class SpaceshipService {
 
     public Spaceship updateSpaceship(Spaceship spaceship) {
         // Check if spaceship exists before update
-        Spaceship existingSpaceship = getSpaceshipById(spaceship.id);
+        Spaceship existingSpaceship = getSpaceshipById(spaceship.getId());
         if (existingSpaceship == null) {
-            throw new RuntimeException("Spaceship with id " + spaceship.id + " not found");
+            throw new RuntimeException("Spaceship with id " + spaceship.getId() + " not found");
         }
         return spaceshipRepository.save(spaceship);
     }

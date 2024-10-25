@@ -1,21 +1,20 @@
 package rous.space.rs.spaceshipms.application.usecases;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rous.space.rs.spaceshipms.application.services.SpaceshipService;
 import rous.space.rs.spaceshipms.domain.Spaceship;
 import rous.space.rs.spaceshipms.domain.exceptions.SpaceshipNotFoundException;
 
-
+@RequiredArgsConstructor
 @Service
 public class CreateSpaceshipUseCase {
 
-    @Autowired
-    SpaceshipService spaceshipService;
+    private final SpaceshipService spaceshipService;
 
     private Spaceship spaceship;
-
 
 
     public Spaceship createSpaceship(Spaceship spaceship) {
