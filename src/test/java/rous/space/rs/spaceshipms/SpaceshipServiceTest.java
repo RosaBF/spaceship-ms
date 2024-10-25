@@ -2,13 +2,12 @@ package rous.space.rs.spaceshipms;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import rous.space.rs.spaceshipms.application.services.SpaceshipService;
+import rous.space.rs.spaceshipms.application.service.SpaceshipService;
 import rous.space.rs.spaceshipms.domain.Spaceship;
 import rous.space.rs.spaceshipms.infrastructure.database.SpaceshipRepository;
 import java.util.Collections;

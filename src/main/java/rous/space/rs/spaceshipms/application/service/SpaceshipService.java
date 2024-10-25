@@ -1,4 +1,4 @@
-package rous.space.rs.spaceshipms.application.services;
+package rous.space.rs.spaceshipms.application.service;
 
 
 import org.springframework.data.domain.Page;
