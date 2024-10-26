@@ -1,9 +1,14 @@
 package rous.space.rs.spaceshipms;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -11,9 +16,6 @@ import rous.space.rs.spaceshipms.application.service.SpaceshipService;
 import rous.space.rs.spaceshipms.domain.Spaceship;
 import rous.space.rs.spaceshipms.infrastructure.database.SpaceshipRepository;
 import java.util.Collections;
-
-
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -25,6 +27,15 @@ public class SpaceshipServiceTest {
 
     @Mock
     private SpaceshipRepository spaceshipRepositoryMock;
+
+    @MockBean
+    private CacheManager cacheManager;
+
+    @BeforeEach
+    public void setUp() {
+        Cache cache = Mockito.mock(Cache.class);
+        when(cacheManager.getCache("spaceships")).thenReturn(cache);
+    }
 
 
     @Test
@@ -42,6 +53,7 @@ public class SpaceshipServiceTest {
         assertEquals(savedSpaceship, mockSpaceship);
 
     }
+
 
 
     @Test

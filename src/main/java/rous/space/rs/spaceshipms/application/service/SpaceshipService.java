@@ -1,6 +1,7 @@
 package rous.space.rs.spaceshipms.application.service;
 
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class SpaceshipService {
     public Spaceship createSpaceship(Spaceship spaceship) {
         return spaceshipRepository.save(spaceship);
     }
-
+   //  @Cacheable("spaceships")
     public Spaceship getSpaceshipById(Long id) {
         return spaceshipRepository.findById(id).orElse(null);
     }
