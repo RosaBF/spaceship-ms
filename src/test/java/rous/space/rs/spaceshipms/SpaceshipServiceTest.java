@@ -12,14 +12,19 @@ import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import rous.space.rs.spaceshipms.application.service.SpaceshipService;
 import rous.space.rs.spaceshipms.domain.Spaceship;
 import rous.space.rs.spaceshipms.infrastructure.database.SpaceshipRepository;
+
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 public class SpaceshipServiceTest {
@@ -68,7 +73,7 @@ public class SpaceshipServiceTest {
         // Then
         assertNotNull(result);
         assertEquals(mockSpaceship, result);
-        Mockito.verify(spaceshipRepositoryMock, Mockito.times(1)).findById(id);
+        verify(spaceshipRepositoryMock, Mockito.times(1)).findById(id);
     }
 
 
@@ -83,7 +88,7 @@ public class SpaceshipServiceTest {
 
         // Then
         assertNull(result);
-        Mockito.verify(spaceshipRepositoryMock, Mockito.times(1)).findById(id);
+        verify(spaceshipRepositoryMock, Mockito.times(1)).findById(id);
     }
 
 
@@ -99,6 +104,63 @@ public class SpaceshipServiceTest {
 
         // Verify results
         assertEquals(expectedSpaceships, actualSpaceships);
+    }
+
+    @Test
+    public void testUpdateSpaceship_existingSpaceship() throws Exception {
+        // Prepare mock data
+        Long spaceshipId = 1L;
+        String newName = "Enterprise";
+        String newModel = "NCC-1701";
+        Spaceship existingSpaceship = new Spaceship(spaceshipId, "Pegasus", "Solid-Z500");
+        Spaceship updatedSpaceship = new Spaceship(spaceshipId, newName, newModel);
+
+
+        // Mock behavior of spaceshipRepository
+        when(spaceshipRepositoryMock.findById(spaceshipId)).thenReturn(Optional.of(existingSpaceship));
+        when(spaceshipRepositoryMock.save(existingSpaceship)).thenReturn(updatedSpaceship);
+
+        // Call the method under test
+        Spaceship returnedSpaceship = spaceshipService.updateSpaceship(updatedSpaceship);
+
+
+        // Assertions
+        assertThat(returnedSpaceship).isNotNull();
+        assertThat(returnedSpaceship.getId()).isEqualTo(spaceshipId);
+        assertThat(returnedSpaceship.getName()).isEqualTo(newName);
+        assertThat(returnedSpaceship.getModel()).isEqualTo(newModel);
+
+        // Verify interaction with repository
+        verify(spaceshipRepositoryMock).findById(spaceshipId);
+        verify(spaceshipRepositoryMock).save(existingSpaceship);
+    }
+
+    @Test
+    public void testDeleteSpaceship() {
+        Long spaceshipId = 1L;
+
+        spaceshipService.deleteSpaceship(spaceshipId);
+
+        verify(spaceshipRepositoryMock).deleteById(spaceshipId);
+        verifyNoMoreInteractions(spaceshipRepositoryMock);
+    }
+
+    @Test
+    public void testFindByNameContaining() {
+        String name = "Orion";
+        Pageable pageable = PageRequest.of(0, 10);
+
+        List<Spaceship> spaceships = Arrays.asList(
+                new Spaceship(1L, "Orion-A", "X-0001"),
+                new Spaceship(2L, "Orion-D", "X-0002")
+        );
+        Page<Spaceship> expectedPage = new PageImpl<>(spaceships, pageable, spaceships.size());
+
+        when(spaceshipRepositoryMock.findByNameContainingIgnoreCase(name, pageable)).thenReturn(expectedPage);
+
+        Page<Spaceship> actualPage = spaceshipService.findByNameContaining(name, pageable);
+
+        assertEquals(expectedPage, actualPage);
     }
 }
 

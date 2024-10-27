@@ -7,4 +7,5 @@ import rous.space.rs.spaceshipms.domain.Spaceship;
 
 public interface SpaceshipRepository extends JpaRepository<Spaceship, Long> {
     Page<Spaceship> findByNameContainingIgnoreCase(String name, Pageable pageable);
+
 }

@@ -12,17 +12,19 @@ import rous.space.rs.spaceshipms.domain.exceptions.SpaceshipNotFoundException;
 @Service
 public class UpdateSpaceshipUseCase {
 
-    private SpaceshipService spaceshipService;
+    private  SpaceshipService spaceshipService;
 
-
-    public Spaceship updateSpaceship(Spaceship spaceship) {
+    public Spaceship updateSpaceship(Spaceship spaceship) throws SpaceshipNotFoundException {
+        // Fetch existing spaceship
         Spaceship existingSpaceship = spaceshipService.getSpaceshipById(spaceship.getId());
+
+        // Check if spaceship exists
         if (existingSpaceship == null) {
-            throw new SpaceshipNotFoundException("No se encontró la nave con el ID: " + spaceship.getId());
+            throw new SpaceshipNotFoundException("Spaceship with id " + spaceship.getId() + " not found");
         }
-        // Update existing spaceship properties with new values
-        String newName = spaceship.getName() != null ? spaceship.getName() : existingSpaceship.getName();
-        existingSpaceship.setName(newName);
+
+        // Update properties
+        existingSpaceship.setName(spaceship.getName() != null ? spaceship.getName() : existingSpaceship.getName());
         existingSpaceship.setModel(spaceship.getModel() != null ? spaceship.getModel() : existingSpaceship.getModel());
 
 

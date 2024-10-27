@@ -107,5 +107,7 @@ Response: 204 No Content
 
 Additional Notes
 - The database connection details are configured in `application.yaml`.
+- After initializing the application, the H2 console can be accessed via http://localhost:8080/h2-console in your browser. 
+  Use the URL, username, and password specified in `the docker-compose.yaml` file to log in.
 - You can customize the API endpoints and data model to fit your specific requirements.
 

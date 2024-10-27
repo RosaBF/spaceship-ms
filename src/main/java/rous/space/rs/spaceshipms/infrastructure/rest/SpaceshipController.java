@@ -49,6 +49,7 @@ public class SpaceshipController {
 
     @GetMapping("/spaceships")
     public List<Spaceship> getAllSpaceships() {
+
         return getAllSpaceshipsUseCase.getAllSpaceships();
     }
 
@@ -63,7 +64,7 @@ public class SpaceshipController {
     }
 
     @GetMapping("/spaceships/search")
-    public Page<Spaceship> findSpaceshipsByName(@RequestParam String name, Pageable pageable) {
+    public Page<Spaceship> findSpaceshipsByName(@RequestBody String name, Pageable pageable) {
         return findSpaceshipsByNameUseCase.findSpaceshipsByName(name, pageable);
     }
 

@@ -15,7 +15,7 @@ public class DeleteSpaceshipUseCase {
     public void deleteSpaceship(Long id) {
         Spaceship existingSpaceship = spaceshipService.getSpaceshipById(id);
         if (existingSpaceship == null) {
-            throw new SpaceshipNotFoundException("No se encontró la nave con el ID: " + id);
+            throw new SpaceshipNotFoundException("There's no spaceship with the ID: " + id);
         }
         spaceshipService.deleteSpaceship(id);
     }

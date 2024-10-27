@@ -24,7 +24,7 @@ public class CreateSpaceshipUseCase {
 
     private void validateSpaceshipData(Spaceship spaceship) {
         if (spaceship.getName()== null || spaceship.getName().isBlank()) {
-            throw new SpaceshipNotFoundException("El nombre de la nave no puede estar vacío");
+           throw new SpaceshipNotFoundException("The name of the ship cannot be empty");
         }
 
     }

@@ -15,7 +15,7 @@ public class GetSpaceshipByIdUseCase {
     public Spaceship getSpaceshipById(Long id) {
         Spaceship spaceship = spaceshipService.getSpaceshipById(id);
         if (spaceship == null) {
-            throw new SpaceshipNotFoundException("No se encontró la nave con el ID: " + id);
+            throw new SpaceshipNotFoundException("There's no spaceship with the ID: " + id);
         }
         return spaceship;
     }

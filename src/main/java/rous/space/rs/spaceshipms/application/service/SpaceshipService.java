@@ -33,6 +33,11 @@ public class SpaceshipService {
         if (existingSpaceship == null) {
             throw new RuntimeException("Spaceship with id " + spaceship.getId() + " not found");
         }
+        String newName = spaceship.getName() != null ? spaceship.getName() : existingSpaceship.getName();
+        existingSpaceship.setName(newName);
+        String newModel = spaceship.getModel() != null ? spaceship.getModel() : existingSpaceship.getModel();
+        existingSpaceship.setModel(newModel);
+
         return spaceshipRepository.save(spaceship);
     }
 
