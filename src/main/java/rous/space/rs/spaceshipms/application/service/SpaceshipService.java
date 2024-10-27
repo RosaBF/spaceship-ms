@@ -22,7 +22,7 @@ public class SpaceshipService {
     public Spaceship createSpaceship(Spaceship spaceship) {
         return spaceshipRepository.save(spaceship);
     }
-   //  @Cacheable("spaceships")
+    @Cacheable("spaceships")
     public Spaceship getSpaceshipById(Long id) {
         return spaceshipRepository.findById(id).orElse(null);
     }

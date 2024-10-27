@@ -33,7 +33,7 @@ public class SpaceshipController {
 
 
         Spaceship spaceshipCreated = createSpaceshipUseCase.createSpaceship(spaceship);
-        return ResponseEntity.created(URI.create("/spaceships/" + spaceshipCreated)).body(spaceshipCreated);
+        return ResponseEntity.created(URI.create("/spaceships/" + spaceshipCreated.getId())).body(spaceshipCreated);
     }
     @GetMapping("/spaceships/{id}")
     public ResponseEntity<Spaceship> getSpaceshipById(@PathVariable Long id) {

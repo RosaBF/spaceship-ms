@@ -2,9 +2,9 @@ package rous.space.rs.spaceshipms;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cache.Cache;
@@ -16,19 +16,21 @@ import rous.space.rs.spaceshipms.application.service.SpaceshipService;
 import rous.space.rs.spaceshipms.domain.Spaceship;
 import rous.space.rs.spaceshipms.infrastructure.database.SpaceshipRepository;
 import java.util.Collections;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class SpaceshipServiceTest {
 
-    @Autowired
+    @InjectMocks
     private SpaceshipService spaceshipService;
 
     @Mock
     private SpaceshipRepository spaceshipRepositoryMock;
 
-    @MockBean
+  @MockBean
     private CacheManager cacheManager;
 
     @BeforeEach
@@ -43,15 +45,45 @@ public class SpaceshipServiceTest {
         // Create a mock Spaceship object
         Spaceship mockSpaceship = new Spaceship("Enterprise", "NX-01");
 
+        when(spaceshipRepositoryMock.save(mockSpaceship)).thenReturn(mockSpaceship);
+
         // Call the service method under test
         Spaceship savedSpaceship = spaceshipService.createSpaceship(mockSpaceship);
-
-        // Verify interaction with spaceshipRepository.save()
-        when(spaceshipRepositoryMock.save(mockSpaceship)).thenReturn(mockSpaceship);
 
         // Verify results
         assertEquals(savedSpaceship, mockSpaceship);
 
+    }
+
+    @Test
+    public void testGetSpaceshipById_found() {
+        // Given
+        Long id = 1L;
+        Spaceship mockSpaceship = new Spaceship("Enterprise", "NX-01");
+        Mockito.when(spaceshipRepositoryMock.findById(id)).thenReturn(Optional.of(mockSpaceship));
+
+        // When
+        Spaceship result = spaceshipService.getSpaceshipById(id);
+
+        // Then
+        assertNotNull(result);
+        assertEquals(mockSpaceship, result);
+        Mockito.verify(spaceshipRepositoryMock, Mockito.times(1)).findById(id);
+    }
+
+
+    @Test
+    public void testGetSpaceshipById_notFound() {
+        // Given
+        Long id = 2L;
+        Mockito.when(spaceshipRepositoryMock.findById(id)).thenReturn(Optional.empty());
+
+        // When
+        Spaceship result = spaceshipService.getSpaceshipById(id);
+
+        // Then
+        assertNull(result);
+        Mockito.verify(spaceshipRepositoryMock, Mockito.times(1)).findById(id);
     }
 
 

@@ -35,7 +35,7 @@ Request body:
 ```json 
 {
 "name": "Serenity",
-"captain": "Mal Reynolds"
+"model": "X-582"
 }
 ```
 
@@ -45,7 +45,7 @@ Response:
 {
 "id": 1,
 "name": "Serenity",
-"captain": "Mal Reynolds"
+"model": "X-582"
 }
 ```
 
@@ -59,8 +59,8 @@ Response:
 {
 "id": 1,
 "name": "Serenity",
-"captain": "Mal Reynolds"
-},
+"model": "X-582"
+}
 // ... other spaceships
 ]
 ```
@@ -74,7 +74,7 @@ Response:
 {
 "id": 1,
 "name": "Serenity",
-"captain": "Mal Reynolds"
+"model": "X-582"
 }
 ```
 
@@ -95,7 +95,7 @@ Response:
 {
 "id": 1,
 "name": "Serenity 2.0",
-"captain": "Mal Reynolds"
+"model": "X-582"
 }
 ```
 
