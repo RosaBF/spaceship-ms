@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import rous.space.rs.spaceshipms.application.usecases.*;
 import rous.space.rs.spaceshipms.domain.Spaceship;
 import rous.space.rs.spaceshipms.domain.exceptions.SpaceshipNotFoundException;
-
 import java.net.URI;
 import java.util.List;
 
 @RestController
+@RequestMapping("/spaceships")
 public class SpaceshipController {
 
     @Autowired
@@ -28,32 +28,32 @@ public class SpaceshipController {
     @Autowired
     private FindSpaceshipsByNameUseCase findSpaceshipsByNameUseCase;
 
-    @PostMapping("/spaceships")
+    @PostMapping
     public ResponseEntity<Spaceship> createSpaceship(@RequestBody Spaceship spaceship) {
 
 
         Spaceship spaceshipCreated = createSpaceshipUseCase.createSpaceship(spaceship);
         return ResponseEntity.created(URI.create("/spaceships/" + spaceshipCreated.getId())).body(spaceshipCreated);
     }
-    @GetMapping("/spaceships/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Spaceship> getSpaceshipById(@PathVariable Long id) {
         Spaceship spaceship = getSpaceshipByIdUseCase.getSpaceshipById(id);
         return ResponseEntity.ok(spaceship);
     }
 
-    @PutMapping("/spaceships/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Spaceship> updateSpaceship(@PathVariable Long id, @RequestBody Spaceship updatedSpaceship) {
         Spaceship updated = updateSpaceshipUseCase.updateSpaceship(updatedSpaceship);
         return ResponseEntity.ok(updated);
     }
 
-    @GetMapping("/spaceships")
+    @GetMapping
     public List<Spaceship> getAllSpaceships() {
 
         return getAllSpaceshipsUseCase.getAllSpaceships();
     }
 
-    @DeleteMapping("/spaceships/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteSpaceship(@PathVariable Long id) {
         try {
             deleteSpaceshipUseCase.deleteSpaceship(id);
@@ -63,7 +63,7 @@ public class SpaceshipController {
         }
     }
 
-    @GetMapping("/spaceships/search")
+    @GetMapping("/search")
     public Page<Spaceship> findSpaceshipsByName(@RequestBody String name, Pageable pageable) {
         return findSpaceshipsByNameUseCase.findSpaceshipsByName(name, pageable);
     }
