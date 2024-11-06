@@ -1,12 +1,14 @@
 package rous.space.rs.spaceshipms.domain;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.stereotype.Component;
 
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Component
 @Table(name="SPACESHIP")
 public class Spaceship {
 

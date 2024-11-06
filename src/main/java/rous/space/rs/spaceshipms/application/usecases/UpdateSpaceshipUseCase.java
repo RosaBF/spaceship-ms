@@ -1,17 +1,17 @@
 package rous.space.rs.spaceshipms.application.usecases;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rous.space.rs.spaceshipms.application.service.SpaceshipService;
 import rous.space.rs.spaceshipms.domain.Spaceship;
 import rous.space.rs.spaceshipms.domain.exceptions.SpaceshipNotFoundException;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Service
 public class UpdateSpaceshipUseCase {
 
+    @Autowired
     private  SpaceshipService spaceshipService;
 
     public Spaceship updateSpaceship(Spaceship spaceship) throws SpaceshipNotFoundException {
